@@ -1,0 +1,3 @@
+include ':logLib'
+include ':app'
+rootProject.name = "SimpleLog"
