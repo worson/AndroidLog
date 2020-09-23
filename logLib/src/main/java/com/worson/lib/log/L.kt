@@ -1,4 +1,4 @@
-package app.worson.lib.log
+package com.worson.lib.log
 
 import android.util.Log
 import java.io.PrintWriter
@@ -18,13 +18,13 @@ object L {
 
 
     fun init(logLevel: Int) {
-        L.i("init#logLevel=${logLevel}")
-        this.logLevel = logLevel
+        i("init#logLevel=${logLevel}")
+        L.logLevel = logLevel
     }
 
     fun setStackTrace(isStackTrace:Boolean=true,stackTraceDepth:Int=5){
-        this.isStackTrace=isStackTrace
-        this.stackTraceDepth=stackTraceDepth
+        L.isStackTrace =isStackTrace
+        L.stackTraceDepth =stackTraceDepth
     }
 
     @JvmStatic
@@ -36,7 +36,7 @@ object L {
     @JvmStatic
     @Deprecated("please use msg:() -> Any?")
     fun d(tag: String, msg: Any?) {
-        log(priority = Log.DEBUG, tag = "${TAG_PREFIX}#$tag", holder = { msg })
+        log(priority = Log.DEBUG, tag = "$TAG_PREFIX#$tag", holder = { msg })
     }
 
     @JvmStatic
@@ -47,7 +47,7 @@ object L {
 
     @JvmStatic
     fun d(tag: String, msg: () -> Any?) {
-        log(priority = Log.DEBUG, tag = "${TAG_PREFIX}#$tag", holder = msg)
+        log(priority = Log.DEBUG, tag = "$TAG_PREFIX#$tag", holder = msg)
     }
 
     @JvmStatic
@@ -58,7 +58,7 @@ object L {
 
     @JvmStatic
     fun i(tag: String, msg: Any?) {
-        log(priority = Log.INFO, tag = "${TAG_PREFIX}#$tag", holder = { msg })
+        log(priority = Log.INFO, tag = "$TAG_PREFIX#$tag", holder = { msg })
     }
 
     @JvmStatic
@@ -68,7 +68,7 @@ object L {
 
     @JvmStatic
     fun i(tag: String, msg: () -> Any?) {
-        log(priority = Log.INFO, tag = "${TAG_PREFIX}#$tag", holder = msg)
+        log(priority = Log.INFO, tag = "$TAG_PREFIX#$tag", holder = msg)
     }
 
     @JvmStatic
@@ -78,7 +78,7 @@ object L {
 
     @JvmStatic
     fun w(tag: String, msg: Any?) {
-        log(priority = Log.WARN, tag = "${TAG_PREFIX}#$tag", holder = { msg })
+        log(priority = Log.WARN, tag = "$TAG_PREFIX#$tag", holder = { msg })
     }
 
     @JvmStatic
@@ -88,7 +88,7 @@ object L {
 
     @JvmStatic
     fun w(tag: String, msg: () -> Any?) {
-        log(priority = Log.WARN, tag = "${TAG_PREFIX}#$tag", holder = msg)
+        log(priority = Log.WARN, tag = "$TAG_PREFIX#$tag", holder = msg)
     }
 
     @JvmStatic
@@ -98,14 +98,14 @@ object L {
 
     @JvmStatic
     fun e(tag: String, msg: Any?) {
-        log(priority = Log.ERROR, tag = "${TAG_PREFIX}#$tag", holder = { msg })
+        log(priority = Log.ERROR, tag = "$TAG_PREFIX#$tag", holder = { msg })
     }
 
     @JvmStatic
     fun e(tag: String, msg: Any?, throwable: Throwable?) {
         log(
             priority = Log.ERROR,
-            tag = "${TAG_PREFIX}#$tag",
+            tag = "$TAG_PREFIX#$tag",
             msg = throwable?.let {
                 "$msg\n${throwableToString(throwable)}"
             } ?: "throwable is null"
@@ -119,7 +119,7 @@ object L {
 
     @JvmStatic
     fun wtf(tag: String, msg: Any?) {
-        log(priority = Log.ASSERT, tag = "${TAG_PREFIX}#$tag", holder = { msg })
+        log(priority = Log.ASSERT, tag = "$TAG_PREFIX#$tag", holder = { msg })
     }
 
 

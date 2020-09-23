@@ -1,4 +1,4 @@
-package app.worson.simplelog
+package com.worson.lib.log
 
 import org.junit.Test
 

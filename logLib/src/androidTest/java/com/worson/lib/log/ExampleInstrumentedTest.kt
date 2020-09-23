@@ -1,4 +1,4 @@
-package app.worson.lib.log
+package com.worson.lib.log
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

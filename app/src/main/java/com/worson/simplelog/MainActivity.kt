@@ -1,9 +1,10 @@
-package app.worson.simplelog
+package com.worson.simplelog
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import app.worson.lib.log.L
+import app.worson.simplelog.R
+import com.worson.lib.log.L
 
 class MainActivity : AppCompatActivity() {
 
