@@ -13,7 +13,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         L.init(Log.VERBOSE)
+        L.setStackTrace(true)
         L.i(TAG, "onCreate: ")
+        L.d(TAG) {"onCreate: "}
 
     }
 }

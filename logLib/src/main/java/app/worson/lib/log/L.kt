@@ -11,6 +11,8 @@ import java.io.StringWriter
 
 object L {
     private var logLevel = Log.INFO
+    private var isStackTrace:Boolean=true
+    private var stackTraceDepth:Int=5
 
     const val TAG_PREFIX = "LogX"
 
@@ -18,6 +20,11 @@ object L {
     fun init(logLevel: Int) {
         L.i("init#logLevel=${logLevel}")
         this.logLevel = logLevel
+    }
+
+    fun setStackTrace(isStackTrace:Boolean=true,stackTraceDepth:Int=5){
+        this.isStackTrace=isStackTrace
+        this.stackTraceDepth=stackTraceDepth
     }
 
     @JvmStatic
@@ -50,7 +57,6 @@ object L {
     }
 
     @JvmStatic
-    @Deprecated("please use msg:() -> Any?")
     fun i(tag: String, msg: Any?) {
         log(priority = Log.INFO, tag = "${TAG_PREFIX}#$tag", holder = { msg })
     }
@@ -138,7 +144,13 @@ object L {
             } else {
                 msg?.toString() ?: "null"
             }
-            Log.println(priority, tag, message)
+            val newTag=if (isStackTrace){
+                "${tag} ${getRuntimeCaller(stackTraceDepth)}"
+            }else{
+                tag
+            }
+
+            Log.println(priority, newTag, message)
         }
     }
 
@@ -156,10 +168,41 @@ object L {
             } else {
                 msg?.toString() ?: "null"
             }
-            Log.println(priority, tag, message)
+            val newTag=if (isStackTrace){
+                "${tag} ${getRuntimeCaller(stackTraceDepth)}"
+            }else{
+                tag
+            }
+            Log.println(priority, newTag, message)
         }
 
     }
 
+    private fun getRuntimeCaller(maxDepth: Int): String {
+        val stackTrace =
+            Thread.currentThread().stackTrace
+        val index: Int =
+            getStackOffset(
+                stackTrace,
+                maxDepth
+            )
+        if (index == -1) {
+            return "[]"
+        }
+        val element = stackTrace[index]
+        val methodName = element.methodName
+        val lineNumber = element.lineNumber
+        return "(${element.fileName}:${lineNumber})"
+    }
+
+    private fun getStackOffset(stackTrace: Array<StackTraceElement>,maxDepth: Int): Int {
+        if (null != stackTrace) {
+            if (stackTrace.size > maxDepth) {
+                return maxDepth
+            }
+            return stackTrace.size-1
+        }
+        return -1
+    }
 
 }
